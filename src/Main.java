@@ -1,32 +1,40 @@
+import com.vsu.math.matrix.*;
+import com.vsu.math.vector.*;
+
 public class Main {
     public static void main(String[] args) {
-        Vector2D vector2D = new Vector2D(0,10);
-        Vector2D vector2D1 = new Vector2D(10,0);
-        System.out.println(vector2D);
-        vector2D.sumVector(vector2D1);
-        System.out.println(vector2D);
+        Vector2D vector2D = new Vector2D(0, 10);
+        Vector2D vector2D1 = new Vector2D(10, 0);
+        System.out.println(vector2D.sumVector(vector2D1));
         System.out.println(vector2D.getLenght());
         System.out.println("----------------");
-        Vector3D vector3D = new Vector3D(0,0,10);
-        Vector3D vector3D1 = new Vector3D(0,10,0);
-        Vector3D vector3D2 = vector3D.vectorMultiply(vector3D1);
+        Vector4D vector3D = new Vector4D(0, 0, 10, 0);
+        Vector4D vector3D1 = new Vector4D(0, 10, 0, 10);
+        Vector4D vector3D2 = vector3D.sumVector(vector3D1);
         System.out.println(vector3D2);
         System.out.println("----------------");
-        double[][] matrix = {
-                {1,2,3},
-                {4,5,6},
-                {7,8,9}};
-        Matrix3D matrix3D = new Matrix3D(matrix);
+        float[][] matrix = {
+                {1, 2, 3, 4},
+                {4, 5, 6, 4},
+                {7, 8, 9, 4},
+                {7, 8, 9, 4}
+        };
+        Matrix4D matrix4D = new Matrix4D(matrix);
 
 
-
-        matrix3D.printMatrix();
-        Matrix3D vectorCol = Matrix3D.setVectorCol(vector3D);
+        matrix4D.printMatrix();
+        System.out.println("----------------");
+        Matrix4D vectorCol = Matrix4D.setVectorCol(vector3D);
         vectorCol.printMatrix();
-        Matrix3D vectorRes = matrix3D.multiplyVector(vectorCol);
+        System.out.println("----------------");
+        Matrix4D vectorRes = matrix4D.multiplyVector(vectorCol);
         vectorRes.printMatrix();
-        Matrix3D newMat =  matrix3D.transpose();
+        System.out.println("----------------");
+        Matrix4D newMat = matrix4D.transpose();
         newMat.printMatrix();
+        System.out.println("----------------");
+        Matrix4D res = matrix4D.multiplyMatrix(newMat);
+        res.printMatrix();
 
     }
 }
