@@ -18,22 +18,15 @@ public class Main {
                 {7,8,9}};
         Matrix3D matrix3D = new Matrix3D(matrix);
 
-        double[][] matrix1 = {
-                {-1,-2,-3},
-                {-4,-5,-6},
-                {-7,-8,-9}};
-        Matrix3D matrix3D1 = new Matrix3D(matrix1);
+
 
         matrix3D.printMatrix();
-        Matrix3D matrix3D2 = matrix3D.sumMatrix(matrix3D1);
-        matrix3D2.printMatrix();
-        matrix3D2 = matrix3D.subtractMatrix(matrix3D1);
-        matrix3D2.printMatrix();
-        Matrix3D matrix3D3 = new Matrix3D(true);
-        matrix3D3.printMatrix();
-        Matrix3D vectorCol = new Matrix3D(Matrix3D.setVectorCol(vector3D));
+        Matrix3D vectorCol = Matrix3D.setVectorCol(vector3D);
         vectorCol.printMatrix();
-        System.out.println(matrix3D.multiplyVector(vectorCol));
+        Matrix3D vectorRes = matrix3D.multiplyVector(vectorCol);
+        vectorRes.printMatrix();
+        Matrix3D newMat =  matrix3D.transpose();
+        newMat.printMatrix();
 
     }
 }

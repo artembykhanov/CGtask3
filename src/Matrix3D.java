@@ -33,6 +33,13 @@ public class Matrix3D {
         return matrix[row][col];
     }
 
+    public static Matrix3D setVectorCol(Vector3D vector3D) {
+        double[][] values = new double[][]{
+                {vector3D.getX()},
+                {vector3D.getY()},
+                {vector3D.getZ()}};
+        return new Matrix3D(values);
+    }
 
 
     public void printMatrix() {
@@ -66,12 +73,23 @@ public class Matrix3D {
     }
 
     public Matrix3D multiplyVector(Matrix3D vectorCol) {
-        double[][] values = new double[1][3];
+        double[][] values = new double[3][1];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                values[0][i] += matrix[i][j] * vectorCol.getCell(0,i);
+                values[i][0] += matrix[i][j] * vectorCol.getCell(i, 0);
             }
         }
         return new Matrix3D(values);
     }
+
+    public Matrix3D transpose() {
+        double[][] transposed = new double[3][3];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                transposed[j][i]=matrix[i][j];
+            }
+        }
+        return new Matrix3D(transposed);
+    }
+
 }
