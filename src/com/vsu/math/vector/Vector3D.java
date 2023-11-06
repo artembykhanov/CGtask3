@@ -23,68 +23,92 @@ public class Vector3D {
         return z;
     }
 
+
+    /**
+     * Операция сложения
+     */
     public Vector3D sumVector(Vector3D v) {
-        float a;
-        float b;
-        float c;
-        a = x + v.getX();
-        b = y + v.getY();
-        c = z + v.getZ();
+        float a = x + v.getX();
+        float b = y + v.getY();
+        float c = z + v.getZ();
         return new Vector3D(a, b, c);
     }
 
+
+    /**
+     * Операция вычитания
+     */
     public Vector3D subtractVector(Vector3D v) {
-        float a;
-        float b;
-        float c;
-        a = x - v.getX();
-        b = y - v.getY();
-        c = z - v.getZ();
+        float a = x - v.getX();
+        float b = y - v.getY();
+        float c = z - v.getZ();
         return new Vector3D(a, b, c);
     }
 
+
+    /**
+     * Операция умножения на скаляр
+     */
     public Vector3D multiplyScalar(float scalar) {
-        float a;
-        float b;
-        float c;
-        a = x * scalar;
-        b = y * scalar;
-        c = z * scalar;
+        float a = x * scalar;
+        float b = y * scalar;
+        float c = z * scalar;
         return new Vector3D(a, b, c);
     }
 
+
+    /**
+     * Операция деления на скаляр
+     */
     public Vector3D divScalar(float scalar) {
-        float a;
-        float b;
-        float c;
-        a = x / scalar;
-        b = y / scalar;
-        c = z / scalar;
+        if (scalar == 0) {
+            throw new IllegalArgumentException("Деление на ноль не допускается.");
+        }
+        float a = x / scalar;
+        float b = y / scalar;
+        float c = z / scalar;
         return new Vector3D(a, b, c);
     }
 
-    public float getLenght() {
-        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
+
+    /**
+     * Операция вычисления длины
+     */
+    public float getLength() {
+        return (float) Math.sqrt(x * x + y * y + z * z);
     }
 
+
+    /**
+     * Операция нормализации вектора
+     */
     public Vector3D normalize() {
         float a = 0;
         float b = 0;
         float c = 0;
-        float lenght = getLenght();
-        if (lenght != 0) {
-            a = x / lenght;
-            b = y / lenght;
-            c = z / lenght;
+        float length = getLength();
+        if (length != 0) {
+            a = x / length;
+            b = y / length;
+            c = z / length;
+        } else {
+            throw new IllegalArgumentException("Невозможно нормализовать нулевой вектор.");
         }
         return new Vector3D(a, b, c);
     }
 
 
-    public float scalarMultiply(Vector3D v) {
+    /**
+     * Операция скалярного произведения
+     */
+    public float dotProduct(Vector3D v) {
         return this.x * v.getX() + this.y * v.getY() + this.z * v.getZ();
     }
 
+
+    /**
+     * Операция векторного произведения
+     */
     public Vector3D vectorMultiply(Vector3D v) {
         float newX = this.y * v.getZ() - this.z * v.getY();
         float newY = this.z * v.getX() - this.x * v.getZ();

@@ -3,11 +3,13 @@ import com.vsu.math.vector.*;
 
 public class Main {
     public static void main(String[] args) {
-        Vector2D vector2D = new Vector2D(0, 10);
+        Vector2D vector2D = new Vector2D(1, 1);
         Vector2D vector2D1 = new Vector2D(10, 0);
         System.out.println(vector2D.sumVector(vector2D1));
-        System.out.println(vector2D.getLenght());
+        System.out.println(vector2D.getLength());
+        System.out.println(vector2D.normalize());
         System.out.println("----------------");
+
         Vector4D vector3D = new Vector4D(0, 0, 10, 0);
         Vector4D vector3D1 = new Vector4D(0, 10, 0, 10);
         Vector4D vector3D2 = vector3D.sumVector(vector3D1);
@@ -24,10 +26,8 @@ public class Main {
 
         matrix4D.printMatrix();
         System.out.println("----------------");
-        Matrix4D vectorCol = Matrix4D.setVectorCol(vector3D);
-        vectorCol.printMatrix();
         System.out.println("----------------");
-        Matrix4D vectorRes = matrix4D.multiplyVector(vectorCol);
+        Matrix4D vectorRes = matrix4D.multiplyVector(vector3D);
         vectorRes.printMatrix();
         System.out.println("----------------");
         Matrix4D newMat = matrix4D.transpose();

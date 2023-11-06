@@ -9,7 +9,6 @@ public class Vector2D {
         this.y = y;
     }
 
-
     public float getX() {
         return x;
     }
@@ -18,54 +17,81 @@ public class Vector2D {
         return y;
     }
 
+
+    /**
+     * Операция сложения
+     */
     public Vector2D sumVector(Vector2D v) {
-        float a;
-        float b;
-        a = (x + v.getX());
-        b = (y + v.getY());
+
+        float a = x + v.getX();
+        float b = y + v.getY();
         return new Vector2D(a, b);
     }
 
+
+    /**
+     * Операция вычитания
+     */
     public Vector2D subtractVector(Vector2D v) {
-        float a;
-        float b;
-        a = x - v.getX();
-        b = y - v.getY();
+
+        float a = x - v.getX();
+        float b = y - v.getY();
         return new Vector2D(a, b);
     }
 
+
+    /**
+     * Операция умножения на скаляр
+     */
     public Vector2D multiplyScalar(float scalar) {
-        float a;
-        float b;
-        a = x * scalar;
-        b = y * scalar;
+        float a = x * scalar;
+        float b = y * scalar;
         return new Vector2D(a, b);
     }
 
+
+    /**
+     * Операция деления на скаляр
+     */
     public Vector2D divScalar(float scalar) {
-        float a;
-        float b;
-        a = x / scalar;
-        b = y / scalar;
+        if (scalar == 0) {
+            throw new IllegalArgumentException("Деление на ноль не допускается.");
+        }
+        float a = x / scalar;
+        float b = y / scalar;
         return new Vector2D(a, b);
     }
 
-    public float getLenght() {
-        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+
+    /**
+     * Операция вычисления длины
+     */
+    public float getLength() {
+        return (float) Math.sqrt(x * x + y * y);
     }
 
+
+    /**
+     * Операция нормализации вектора
+     */
     public Vector2D normalize() {
         float a = 0;
         float b = 0;
-        float lenght = getLenght();
-        if (lenght != 0) {
-            a = x / lenght;
-            b = y / lenght;
+        float length = getLength();
+        if (length != 0) {
+            a = x / length;
+            b = y / length;
+        } else {
+            throw new IllegalArgumentException("Невозможно нормализовать нулевой вектор.");
         }
         return new Vector2D(a, b);
     }
 
-    public float dotproduct(Vector2D v) {
+
+    /**
+     * Операция скалярного произведения
+     */
+    public float dotProduct(Vector2D v) {
         return this.x * v.getX() + this.y * v.getY();
     }
 

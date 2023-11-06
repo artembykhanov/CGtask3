@@ -29,77 +29,93 @@ public class Vector4D {
         return w;
     }
 
+
+    /**
+     * Операция сложения
+     */
     public Vector4D sumVector(Vector4D v) {
-        float a;
-        float b;
-        float c;
-        float d;
-        a = x + v.getX();
-        b = y + v.getY();
-        c = z + v.getZ();
-        d = w + v.getW();
+        float a = x + v.getX();
+        float b = y + v.getY();
+        float c = z + v.getZ();
+        float d = w + v.getW();
         return new Vector4D(a, b, c, d);
     }
 
+
+    /**
+     * Операция вычитания
+     */
     public Vector4D subtractVector(Vector4D v) {
-        float a;
-        float b;
-        float c;
-        float d;
-        a = x - v.getX();
-        b = y - v.getY();
-        c = z - v.getZ();
-        d = w - v.getW();
+        float a = x - v.getX();
+        float b = y - v.getY();
+        float c = z - v.getZ();
+        float d = w - v.getW();
         return new Vector4D(a, b, c, d);
     }
 
+
+    /**
+     * Операция умножения на скаляр
+     */
     public Vector4D multiplyScalar(float scalar) {
-        float a;
-        float b;
-        float c;
-        float d;
-        a = x * scalar;
-        b = y * scalar;
-        c = z * scalar;
-        d = w * scalar;
+        float a = x * scalar;
+        float b = y * scalar;
+        float c = z * scalar;
+        float d = w * scalar;
         return new Vector4D(a, b, c, d);
     }
 
+
+    /**
+     * Операция деления на скаляр
+     */
     public Vector4D divScalar(float scalar) {
-        float a;
-        float b;
-        float c;
-        float d;
-        a = x / scalar;
-        b = y / scalar;
-        c = z / scalar;
-        d = w / scalar;
+        if (scalar == 0) {
+            throw new IllegalArgumentException("Деление на ноль не допускается.");
+        }
+        float a = x / scalar;
+        float b = y / scalar;
+        float c = z / scalar;
+        float d = w / scalar;
         return new Vector4D(a, b, c, d);
     }
 
-    public float getLenght() {
-        return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
+
+    /**
+     * Операция вычисления длины
+     */
+    public float getLength() {
+        return (float) Math.sqrt(x * x + y * y + z * z + w * w);
     }
 
+
+    /**
+     * Операция нормализации вектора
+     */
     public Vector4D normalize() {
         float a = 0;
         float b = 0;
         float c = 0;
         float d = 0;
-        float lenght = getLenght();
-        if (lenght != 0) {
-            a = x / lenght;
-            b = y / lenght;
-            c = z / lenght;
-            d = w / lenght;
+        float length = getLength();
+        if (length != 0) {
+            a = x / length;
+            b = y / length;
+            c = z / length;
+            d = w / length;
+        } else {
+            throw new IllegalArgumentException("Невозможно нормализовать нулевой вектор.");
         }
         return new Vector4D(a, b, c, d);
     }
 
-    public float scalarMultiply(Vector4D v) {
+
+    /**
+     * Операция скалярного произведения
+     */
+    public float dotProduct(Vector4D v) {
         return this.x * v.getX() + this.y * v.getY() + this.z * v.getZ() + this.w * v.getW();
     }
-
 
     @Override
     public String toString() {

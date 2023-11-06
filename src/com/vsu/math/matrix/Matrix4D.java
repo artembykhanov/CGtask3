@@ -10,6 +10,13 @@ public class Matrix4D {
         this.matrix = new float[4][4];
     }
 
+
+    /**
+     * Конструктор
+     *
+     * @param isUnitMatrix true - единичная матрица
+     * @param isUnitMatrix false - нулевая матрица
+     */
     public Matrix4D(boolean isUnitMatrix) {
         if (isUnitMatrix) {
             this.matrix = new float[][]{
@@ -23,7 +30,9 @@ public class Matrix4D {
     }
 
     public Matrix4D(float[][] matrix) {
-        this.matrix = matrix;
+        if ((matrix.length == 4 && matrix[0].length == 4) || (matrix.length == 4 && matrix[0].length == 1)) {
+            this.matrix = matrix;
+        } else throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4 или вектором-столбцом.");
     }
 
     public float[][] getMatrix() {
@@ -34,6 +43,10 @@ public class Matrix4D {
         return matrix[row][col];
     }
 
+
+    /**
+     * Операция составления вектора-столбца
+     */
     public static Matrix4D setVectorCol(Vector4D vector4D) {
         float[][] values = new float[][]{
                 {vector4D.getX()},
@@ -44,6 +57,9 @@ public class Matrix4D {
     }
 
 
+    /**
+     * Операция вывода матрицы
+     */
     public void printMatrix() {
         System.out.println("Matrix: ");
         for (int i = 0; i < matrix.length; i++) {
@@ -54,7 +70,14 @@ public class Matrix4D {
         }
     }
 
+
+    /**
+     * Операция сложения матрицы
+     */
     public Matrix4D sumMatrix(Matrix4D matrix4D) {
+        if (matrix4D.getMatrix().length != 4 || matrix4D.getMatrix()[0].length != 4) {
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4.");
+        }
         float[][] values = new float[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
@@ -64,7 +87,14 @@ public class Matrix4D {
         return new Matrix4D(values);
     }
 
+
+    /**
+     * Операция вычитания матрицы
+     */
     public Matrix4D subtractMatrix(Matrix4D matrix4D) {
+        if (matrix4D.getMatrix().length != 4 || matrix4D.getMatrix()[0].length != 4) {
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4.");
+        }
         float[][] values = new float[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
@@ -74,17 +104,29 @@ public class Matrix4D {
         return new Matrix4D(values);
     }
 
-    public Matrix4D multiplyVector(Matrix4D vectorCol) {
+
+    /**
+     * Операция умножения на соответствующий вектор-столбец
+     */
+    public Matrix4D multiplyVector(Vector4D vectorCol) {
+        Matrix4D matrix4DVector = Matrix4D.setVectorCol(vectorCol);
         float[][] values = new float[4][1];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                values[i][0] += matrix[i][j] * vectorCol.getCell(i, 0);
+                values[i][0] += matrix[i][j] * matrix4DVector.getCell(i, 0);
             }
         }
         return new Matrix4D(values);
     }
 
+
+    /**
+     * Операция перемножения матриц
+     */
     public Matrix4D multiplyMatrix(Matrix4D matrix4D) {
+        if (matrix4D.getMatrix().length != 4 || matrix4D.getMatrix()[0].length != 4) {
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4.");
+        }
         float[][] values = new float[4][4];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
@@ -96,7 +138,14 @@ public class Matrix4D {
         return new Matrix4D(values);
     }
 
+
+    /**
+     * Операция транспонирования
+     */
     public Matrix4D transpose() {
+        if (matrix.length != 4 || matrix[0].length != 4) {
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4.");
+        }
         float[][] transposed = new float[4][4];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
