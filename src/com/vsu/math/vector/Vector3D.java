@@ -1,6 +1,7 @@
 package com.vsu.math.vector;
 
 public class Vector3D {
+    private static final float esp = 1e-4f;
     private float x;
     private float y;
     private float z;
@@ -61,7 +62,7 @@ public class Vector3D {
      * Операция деления на скаляр
      */
     public Vector3D divScalar(float scalar) {
-        if (scalar == 0) {
+        if (Math.abs(scalar) < esp) {
             throw new IllegalArgumentException("Деление на ноль не допускается.");
         }
         float a = x / scalar;
@@ -87,7 +88,7 @@ public class Vector3D {
         float b = 0;
         float c = 0;
         float length = getLength();
-        if (length != 0) {
+        if (Math.abs(length) > esp) {
             a = x / length;
             b = y / length;
             c = z / length;
@@ -124,5 +125,10 @@ public class Vector3D {
                 ", y=" + y +
                 ", z=" + z +
                 '}';
+    }
+    public boolean equalsAns(Vector3D vector3D) {
+        return x == vector3D.getX()
+                && y == vector3D.getY()
+                && z == vector3D.getZ();
     }
 }

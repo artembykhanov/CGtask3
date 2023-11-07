@@ -4,6 +4,7 @@ import com.vsu.math.vector.Vector2D;
 import com.vsu.math.vector.Vector3D;
 
 public class Matrix3D {
+    private static final float esp = 1e-4f;
     private float[][] matrix;
 
     public Matrix3D() {
@@ -30,7 +31,8 @@ public class Matrix3D {
     public Matrix3D(float[][] matrix) {
         if ((matrix.length == 3 && matrix[0].length == 3) || (matrix.length == 3 && matrix[0].length == 1)) {
             this.matrix = matrix;
-        } else throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 3 на 3 или вектором-столбцом.");
+        } else
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 3 на 3 или вектором-столбцом.");
 
     }
 
@@ -114,6 +116,26 @@ public class Matrix3D {
         }
         return new Matrix3D(values);
     }
+    public Matrix3D multiplyVector(float[][] vector) {
+
+        Matrix3D matrix3DVector = new Matrix3D(vector);
+        float[][] values = new float[3][1];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                values[i][0] += matrix[i][j] * matrix3DVector.getCell(i, 0);
+            }
+        }
+        return new Matrix3D(values);
+    }
+    public Matrix3D multiplyVector(Matrix3D matrix3DVector) {
+        float[][] values = new float[3][1];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                values[i][0] += matrix[i][j] * matrix3DVector.getCell(i, 0);
+            }
+        }
+        return new Matrix3D(values);
+    }
 
     /**
      * Операция перемножения матриц
@@ -149,4 +171,15 @@ public class Matrix3D {
         return new Matrix3D(transposed);
     }
 
+    public boolean equalsAns(Matrix3D matrix3D) {
+        boolean flag = false;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == matrix3D.getCell(i, j)) {
+                    flag = true;
+                } else return false;
+            }
+        }
+        return flag;
+    }
 }

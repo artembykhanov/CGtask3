@@ -1,6 +1,7 @@
 package com.vsu.math.vector;
 
 public class Vector2D {
+    private static final float esp = 1e-4f;
     private float x;
     private float y;
 
@@ -54,7 +55,7 @@ public class Vector2D {
      * Операция деления на скаляр
      */
     public Vector2D divScalar(float scalar) {
-        if (scalar == 0) {
+        if (Math.abs(scalar) < esp) {
             throw new IllegalArgumentException("Деление на ноль не допускается.");
         }
         float a = x / scalar;
@@ -77,8 +78,9 @@ public class Vector2D {
     public Vector2D normalize() {
         float a = 0;
         float b = 0;
+
         float length = getLength();
-        if (length != 0) {
+        if (Math.abs(length) > esp) {//модуль эпсилон
             a = x / length;
             b = y / length;
         } else {
@@ -101,5 +103,10 @@ public class Vector2D {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public boolean equalsAns(Vector2D vector2D) {
+        return x == vector2D.getX()
+                && y == vector2D.getY();
     }
 }

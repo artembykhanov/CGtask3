@@ -1,8 +1,10 @@
 package com.vsu.math.matrix.test;
 
+import com.vsu.math.matrix.Matrix3D;
 import com.vsu.math.matrix.Matrix4D;
 import com.vsu.math.vector.Vector3D;
 import com.vsu.math.vector.Vector4D;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,10 +25,17 @@ class Matrix4DTest {
                 {70, 8, 10, 4},
                 {7, 8, 9, 4}
         };
+        float[][] result1 = {
+                {2, 4, 6, 14},
+                {8, 10, 12, 8},
+                {77, 16, 19, 8},
+                {14, 16, 18, 8}
+        };
         Matrix4D matrix4D = new Matrix4D(matrix);
         Matrix4D matrix4D1 = new Matrix4D(matrix1);
-        Matrix4D result = matrix4D.sumMatrix(matrix4D1);
-        result.printMatrix();
+        Matrix4D check = matrix4D.sumMatrix(matrix4D1);
+        Matrix4D result = new Matrix4D(result1);
+        Assertions.assertTrue(check.equalsAns(result));
     }
 
     @Test
@@ -43,10 +52,17 @@ class Matrix4DTest {
                 {70, 8, 10, 4},
                 {7, 8, 9, 4}
         };
+        float[][] result1 = {
+                {0, 0, 0, -6},
+                {0, 0, 0, 0},
+                {-63, 0, -1, 0},
+                {0, 0, 0, 0}
+        };
         Matrix4D matrix4D = new Matrix4D(matrix);
         Matrix4D matrix4D1 = new Matrix4D(matrix1);
-        Matrix4D result = matrix4D.subtractMatrix(matrix4D1);
-        result.printMatrix();
+        Matrix4D check = matrix4D.subtractMatrix(matrix4D1);
+        Matrix4D result = new Matrix4D(result1);
+        Assertions.assertTrue(check.equalsAns(result));
     }
 
     @Test
@@ -57,10 +73,16 @@ class Matrix4DTest {
                 {7, 8, 9, 4},
                 {7, 8, 9, 4}
         };
+        float[][] vector = {
+                {50},
+                {95},
+                {140},
+                {56}};
         Vector4D vector4D = new Vector4D(5, 5,5,2);
         Matrix4D matrix4D = new Matrix4D(matrix);
-        Matrix4D result = matrix4D.multiplyVector(vector4D);
-        result.printMatrix();
+        Matrix4D check = matrix4D.multiplyVector(vector4D);
+        Matrix4D result = new Matrix4D(vector);
+        Assertions.assertTrue(check.equalsAns(result));
     }
 
     @Test
@@ -77,10 +99,17 @@ class Matrix4DTest {
                 {70, 8, 10, 4},
                 {7, 8, 9, 4}
         };
+        float[][] result1 = {
+                {219, 36, 45, 30},
+                {444, 81, 102, 84},
+                {669, 126, 159, 138},
+                {669, 126, 159, 138}
+        };
         Matrix4D matrix4D = new Matrix4D(matrix);
         Matrix4D matrix4D1 = new Matrix4D(matrix1);
-        Matrix4D result = matrix4D.multiplyMatrix(matrix4D1);
-        result.printMatrix();
+        Matrix4D check = matrix4D.multiplyMatrix(matrix4D1);
+        Matrix4D result = new Matrix4D(result1);
+        Assertions.assertTrue(check.equalsAns(result));
     }
 
     @Test
@@ -91,8 +120,15 @@ class Matrix4DTest {
                 {70, 8, 10, 4},
                 {7, 8, 9, 4}
         };
+        float[][] result1 = {
+                {1, 4, 70, 7},
+                {2, 5, 8, 8},
+                {3, 6, 10, 9},
+                {10, 4, 4, 4}
+        };
         Matrix4D matrix4D = new Matrix4D(matrix);
-        Matrix4D result = matrix4D.transpose();
-        result.printMatrix();
+        Matrix4D check = matrix4D.transpose();
+        Matrix4D result = new Matrix4D(result1);
+        Assertions.assertTrue(check.equalsAns(result));
     }
 }

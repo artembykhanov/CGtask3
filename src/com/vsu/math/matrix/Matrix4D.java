@@ -4,6 +4,7 @@ import com.vsu.math.vector.Vector3D;
 import com.vsu.math.vector.Vector4D;
 
 public class Matrix4D {
+    private static final float esp = 1e-4f;
     private float[][] matrix;
 
     public Matrix4D() {
@@ -32,7 +33,8 @@ public class Matrix4D {
     public Matrix4D(float[][] matrix) {
         if ((matrix.length == 4 && matrix[0].length == 4) || (matrix.length == 4 && matrix[0].length == 1)) {
             this.matrix = matrix;
-        } else throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4 или вектором-столбцом.");
+        } else
+            throw new IllegalArgumentException("Предоставленная матрица должна быть матрицей 4 на 4 или вектором-столбцом.");
     }
 
     public float[][] getMatrix() {
@@ -119,6 +121,28 @@ public class Matrix4D {
         return new Matrix4D(values);
     }
 
+    public Matrix4D multiplyVector(float[][] vector) {
+        Matrix4D matrix4DVector = new Matrix4D(vector);
+
+        float[][] values = new float[4][1];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                values[i][0] += matrix[i][j] * matrix4DVector.getCell(i, 0);
+            }
+        }
+        return new Matrix4D(values);
+    }
+
+    public Matrix4D multiplyVector(Matrix4D matrix4DVector) {
+        float[][] values = new float[4][1];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                values[i][0] += matrix[i][j] * matrix4DVector.getCell(i, 0);
+            }
+        }
+        return new Matrix4D(values);
+    }
+
 
     /**
      * Операция перемножения матриц
@@ -155,5 +179,16 @@ public class Matrix4D {
         return new Matrix4D(transposed);
     }
 
+    public boolean equalsAns(Matrix4D matrix4D) {
+        boolean flag = false;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == matrix4D.getCell(i, j)) {
+                    flag = true;
+                } else return false;
+            }
+        }
+        return flag;
+    }
 
 }
